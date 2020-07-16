@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#EFEFEF"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
     <!--navigasi bar-->
     <androidx.appcompat.widget.Toolbar
     android:background="@color/colorPrimary"
@@ -55,69 +54,125 @@
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>
     <!--Header-->
+   <ScrollView
+       android:layout_weight="1"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
     <LinearLayout
-        android:background="@drawable/header"
         android:layout_width="match_parent"
-        android:layout_height="110dp"/>
-    <!--splash-->
-    <LinearLayout
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="-100dp"
-        android:background="@drawable/splash"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/header" />
+        <!--splash-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-100dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/splash"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:adjustViewBounds="true"
-                    android:cropToPadding="true"
-                    android:src="@drawable/cupang1"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"/>
-            </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/cupang1" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BEST SELLER"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="CUPANG HALFMOON"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="RP 400.000"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="Tambah Keranjang"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:padding="10dp"
-            android:orientation="vertical"
+        <!--titikswipe-->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
-            <TextView
-                android:textStyle="bold"
-                android:text="BEST SELLER"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="4dp"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="CUPANG HALFMOON"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="4dp"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="RP 400.000"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:background="@color/colorPrimary"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:text="Tambah Keranjang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Newest Fish "
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ViewFlipper
+            android:id="@+id/v_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
+   </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/item_bottom_navigation"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"/>
 </LinearLayout>
