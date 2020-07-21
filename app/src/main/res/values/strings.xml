@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AxeStore</string>
-    <string name="app_name">My RecyclerView</string>
 
     <string-array name="Fish">
         <item>Cupang 1</item>
