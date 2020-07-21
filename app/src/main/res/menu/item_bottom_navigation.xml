@@ -7,7 +7,7 @@
         android:id="@+id/list"
         android:icon="@drawable/ic_list"/>
     <item android:title="Cart"
-        android:id="@+id/supermarket"
+        android:id="@+id/kart"
         android:icon="@drawable/ic_supermarket"/>
     <item android:title="Profile"
         android:id="@+id/user"

@@ -1,18 +1,36 @@
 package com.example.axestore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
     ViewFlipper v_flipper;
+
+    RecyclerView recyclerView;
+
+    String s1[],s2[];
+    int gambar[] = {R.drawable.cupangflakat2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+
+        s1 = getResources().getStringArray(R.array.Fish);
+        s2 = getResources().getStringArray(R.array.Description);
+
+        MyAdapter myAdapter = new MyAdapter(this, s1, s2, gambar);
+
         int images[] = {R.drawable.koi1, R.drawable.mas_koki1, R.drawable.molly_marble1};
 
 
@@ -21,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         for (int image: images){
             flipperImages(image);
         }
+
     }
     public void flipperImages(int image){
         ImageView imageView = new ImageView(this);
