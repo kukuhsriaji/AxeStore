@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#6a097d</color>
     <color name="colorAccent">#6a097d</color>
     <color name="white">#FFFFFF</color>
+    <color name="address">#2f7092</color>
+    <color name="solidcircle">#80FFFFFF</color>
+    <color name="circleborder">#30FFFFFF</color>
+    <color name="gradend">#67efc8</color>
+    <color name="gradstart">#63c9f</color>
+    <color name="grey">#e5e5e5</color>
 </resources>
