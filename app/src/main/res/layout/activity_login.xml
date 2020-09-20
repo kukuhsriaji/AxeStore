@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login"
+    tools:context=".activity.LoginActivity"
     android:orientation="vertical">
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/formLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -24,7 +26,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="Username"
             android:inputType="textEmailAddress"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
@@ -37,6 +39,7 @@
             android:layout_marginBottom="10dp"/>
 
             <Button
+                android:id="@+id/bt_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
@@ -51,8 +54,33 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/tx_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="AxeStore"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:text="Terimakasih sudah melakukan login di Axe Store"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    </LinearLayout>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/item_bottom_navigation"

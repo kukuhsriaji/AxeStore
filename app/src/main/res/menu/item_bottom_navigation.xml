@@ -9,7 +9,7 @@
     <item android:title="Cart"
         android:id="@+id/menu_cart"
         android:icon="@drawable/ic_supermarket"/>
-    <item android:title="Profile"
+    <item android:title="Account"
         android:id="@+id/menu_profile"
         android:icon="@drawable/ic_user"/>
 </menu>

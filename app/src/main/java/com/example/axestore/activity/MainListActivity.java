@@ -1,14 +1,15 @@
-package com.example.axestore;
+package com.example.axestore.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.axestore.R;
 
 import android.os.Bundle;
 
-public class ProfileActivity extends AppCompatActivity {
+public class MainListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_main_list);
     }
 }

@@ -1,19 +1,22 @@
-package com.example.axestore;
+package com.example.axestore.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ViewFlipper;
 
+import com.example.axestore.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     ViewFlipper v_flipper;
+    ListView lvMainTemplate;
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -35,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         for (int image: images){
             flipperImages(image);
         }
+
+        lvMainTemplate = (ListView) findViewById(R.id.lv_main_template);
+        MainCustomAdapter mainCustomAdapter = new MainCustomAdapter(this, getResources().getIntArray(R.array.product_id), getResources().obtainTypedArray(R.array.product_img_arrays), getResources().getStringArray(R.array.product_name_arrays),
+                getResources().getStringArray(R.array.product_desc_arrays), getResources().getStringArray(R.array.product_price_arrays));
+        lvMainTemplate.setAdapter(mainCustomAdapter);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
     }
 
@@ -48,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_home:
                                 break;
                             case R.id.menu_login:
-                                goToActivity(login.class);
+                                goToActivity(LoginActivity.class);
                                 break;
                             case R.id.menu_cart:
-                                goToActivity(keranjangbelanja.class);
+                                goToActivity(CartActivity.class);
                                 break;
                             case R.id.menu_profile:
+                                goToActivity(ProfileActivity.class);
                                 break;
                         }
                         return true;

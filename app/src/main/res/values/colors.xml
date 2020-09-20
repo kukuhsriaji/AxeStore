@@ -8,6 +8,7 @@
     <color name="solidcircle">#80FFFFFF</color>
     <color name="circleborder">#30FFFFFF</color>
     <color name="gradend">#67efc8</color>
-    <color name="gradstart">#63c9f</color>
     <color name="grey">#e5e5e5</color>
+    <color name="black">#000000</color>
 </resources>
+    <!--    <color name="gradstart">#63c9f</color>-->

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CartListActivity">
+
+
+    <!--START CUPANG BLUE-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/splash"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="3dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp">
+                    <ImageView
+                        android:id="@+id/img_prod"
+                        android:layout_width="86dp"
+                        android:layout_height="86dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cupang_biru"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tv_prod_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CUPANG BLUE"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_prod_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Ikan ini merupakan ikan lokal asli Indonesia"
+                    android:textSize="12dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/tv_prod_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="RP. 200.000,-"
+                    android:textSize="12dp"
+                    android:textColor="#000000"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+                    <Button
+                        android:id="@+id/bt_min_prod"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/button_round"
+                        android:text="-"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tf_count_prod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="1"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"/>
+                    <Button
+                        android:id="@+id/bt_plus_prod"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/button_round"
+                        android:text="+"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/bt_save_changes"
+                            android:layout_width="60dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/button_round"
+                            android:text="Save"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/tf_note_prod"
+            android:background="@drawable/splash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write note for this shop"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:paddingLeft="5dp"
+            android:paddingBottom="2dp"/>
+    </LinearLayout>
+
+    <!--END CUPANG BLUE-->
+
+</LinearLayout>

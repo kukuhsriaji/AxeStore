@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainListActivity">
+
+    <!--START CUPANG BLUE-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/splash"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/img_prod"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/cupang_biru"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="7dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/tv_prod_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CUPANG BLUE"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/tv_prod_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="Ikan ini merupakan ikan lokal asli IndonesiaIkan ini merupakan ikan lokal asli IndonesiaIkan ini merupakan ikan lokal asli IndonesiaIkan ini merupakan ikan lokal asli Indonesia"
+                android:textSize="12dp"
+                android:textColor="#000000"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
+                <TextView
+                    android:id="@+id/tv_prod_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="RP.200.000,-"
+                    android:textSize="12dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left|center_vertical" />
+                <Button
+                    android:id="@+id/bt_add_to_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_round"
+                    android:text="Add To Cart"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:textColor="@color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!--END CUPANG BLUE-->
+
+</LinearLayout>

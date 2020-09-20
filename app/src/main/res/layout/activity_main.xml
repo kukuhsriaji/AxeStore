@@ -2,326 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#EFEFEF"
     android:layout_height="match_parent">
     <!--navigasi bar-->
     <androidx.appcompat.widget.Toolbar
-    android:background="@color/colorPrimary"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="AxeStore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="20dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:drawableStart="@drawable/ic_search"
-            android:gravity="left|center_vertical"
-            android:textAllCaps="false"
-            android:text="Search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="10dp"
-            android:layout_height="match_parent"/>
-        <androidx.cardview.widget.CardView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            app:cardCornerRadius="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="35dp"
-            android:layout_height="35dp">
-            <Button
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/ic_favorit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"/>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-</androidx.appcompat.widget.Toolbar>
-    <!--Header-->
-   <ScrollView
-       android:layout_weight="1"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
+        android:layout_height="30dp">
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <!--splash-->
-            <ViewFlipper
-                android:id="@+id/v_flipper"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/colorPrimary" />
-
-            <!--START CUPANG BLUE-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/splash"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="20dp">
-
-                        <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:adjustViewBounds="true"
-                            android:cropToPadding="true"
-                            android:src="@drawable/cupang_biru" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="CUPANG BLUE"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Ikan ini merupakan ikan lokal asli Indonesia"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="RP. 200.000,-"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="4dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:background="@drawable/button_round"
-                        android:text="Tambah Keranjang"
-                        android:textAllCaps="false"
-                        android:textSize="14dp"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-            <!--END CUPANG BLUE-->
-
-            <!--START CUPANG HALF MOON-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/splash"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="20dp">
-
-                        <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:adjustViewBounds="true"
-                            android:cropToPadding="true"
-                            android:src="@drawable/cupang_half_moon" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="CUPANG HALFMOON"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Ikan ini merupakan ikan peranakan \nyang berasal dari Thailand"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="RP. 400.000,-"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="4dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:background="@drawable/button_round"
-                        android:text="Tambah Keranjang"
-                        android:textAllCaps="false"
-                        android:textSize="14dp"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-            <!--END CUPANG HALF MOON-->
-
-
-            <!--START CUPANG FLAKAT-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/splash"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="20dp">
-
-                        <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:adjustViewBounds="true"
-                            android:cropToPadding="true"
-                            android:src="@drawable/cupang_flakat" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="CUPANG FLAKAT"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Ikan ini merupakan ikan aduan yang \nmemiliki corak warna terbaik saat ini"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="RP. 800.000,-"
-                        android:textSize="12dp"
-                        android:textColor="#000000"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="4dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:background="@drawable/button_round"
-                        android:text="Tambah Keranjang"
-                        android:textAllCaps="false"
-                        android:textSize="14dp"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-            <!--END CUPANG FLAKAT-->
-
-            <!--titikswipe-->
-<!--            <HorizontalScrollView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"></androidx.cardview.widget.CardView>-->
-<!--                </LinearLayout>-->
-<!--            </HorizontalScrollView>-->
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="AxeStore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
-   </ScrollView>
+    </androidx.appcompat.widget.Toolbar>
+    <!--Header-->
+
+    <!--splash-->
+    <ViewFlipper
+        android:id="@+id/v_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal" />
+
+    <ListView
+        android:id="@+id/lv_main_template"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         app:labelVisibilityMode="labeled"

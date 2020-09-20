@@ -8,4 +8,47 @@
     <string-array name="Description">
         <item>cupang ini bermanfaat</item>
     </string-array>
+
+    <string-array name="gender_arrays">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+
+
+
+    <!-- START INITIALIZE OUR PRODUCT-->
+    <integer-array name="product_id">
+        <item>0</item> <!--img src cupang biru-->
+        <item>1</item> <!--img src cupang half moon-->
+        <item>2</item> <!--img src cupang flakat-->
+        <item>3</item> <!--img src cupang flakat-->
+    </integer-array>
+    <integer-array name="product_img_arrays">
+        <item>@drawable/cupang_biru</item> <!--img src cupang biru-->
+        <item>@drawable/cupang_half_moon</item> <!--img src cupang half moon-->
+        <item>@drawable/cupang_flakat</item> <!--img src cupang flakat-->
+        <item>@drawable/cupang_flakat</item> <!--img src cupang flakat-->
+    </integer-array>
+    <string-array name="product_name_arrays">
+        <item>CUPANG BLUE</item>
+        <item>CUPANG HALFMOON</item>
+        <item>CUPANG FLAKAT</item>
+        <item>CUPANG FLAKAT GRADE A</item>
+    </string-array>
+    <string-array name="product_desc_arrays">
+        <item>Ikan ini merupakan ikan lokal asli IndonesiaIkan ini merupakan ikan lokal asli Indonesia, tepat nya di Pulau Kalimantan</item>
+        <item>Ikan ini merupakan ikan peranakan yang berasal dari Thailand Ikan ini merupakan ikan peranakan yang berasal dari Thailand</item>
+        <item>Ikan ini merupakan ikan aduan yang memiliki corak warna terbaik saat initerbaik saat initerbaik saat initerbaik saat ini</item>
+        <item>Ikan ini merupakan ikan aduan yang memiliki corak warna terbaik saat ini Ikan ini merupakan ikan peranakan yang berasal dari Brazil</item>
+    </string-array>
+    <string-array name="product_price_arrays">
+        <item>200000</item>
+        <item>400000</item>
+        <item>800000</item>
+        <item>800000</item>
+    </string-array>
+    <!-- END INITIALIZE OUR PRODUCT-->
+
+
 </resources>

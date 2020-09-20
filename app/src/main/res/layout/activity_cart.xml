@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#EFEFEF"
+    android:layout_height="match_parent"
+    tools:context=".activity.CartActivity">
+    <!--navigasi bar-->
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="AxeStore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@drawable/header"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_clear_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/button_round_white"
+            android:text="Clear Cart"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_weight="1"
+        android:id="@+id/lv_cart_template"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-75dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/button_round_white"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Total Prices:   Rp 0,-"
+            android:textSize="15dp"/>
+
+        <Button
+            android:id="@+id/bt_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/button_round"
+            android:text="Checkout"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/item_bottom_navigation"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"/>
+</LinearLayout>
