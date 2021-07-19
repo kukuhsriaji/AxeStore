@@ -26,4 +26,8 @@ public class ConsumenService {
         return sqlLiteUtil.insertConsumenSqlLite(consumen);
     }
 
+    public Boolean deleteConsumen(String username){
+        return sqlLiteUtil.deleteConsumenSqlLite(username);
+    }
+
 }

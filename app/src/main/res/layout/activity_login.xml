@@ -45,12 +45,8 @@
                 android:text="Login"
                 android:gravity="center">
             </Button>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:gravity="center">
-            </Button>
+
+
 
     </LinearLayout>
 

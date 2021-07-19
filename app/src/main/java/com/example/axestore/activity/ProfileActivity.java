@@ -21,7 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    Button btRegister, btEdit;
+    Button btRegister, btEdit,btLogout;
     EditText tfEmail, tfName, tfAddress, tfPhone, tfUsername, tfPassword;
     Spinner cbGender;
     Consumen consumen;
@@ -43,13 +43,16 @@ public class ProfileActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(3).setChecked(true);
         btRegister = findViewById(R.id.bt_register);
         btEdit = findViewById(R.id.bt_edit);
+        btLogout = findViewById(R.id.bt_logout);
 
         if(consumen != null && consumen.getUsername() != null){
             btRegister.setVisibility(Button.GONE);
             btEdit.setVisibility(Button.VISIBLE);
+            btLogout.setVisibility(Button.VISIBLE);
         } else {
             btRegister.setVisibility(Button.VISIBLE);
             btEdit.setVisibility(Button.GONE);
+            btLogout.setVisibility(Button.GONE);
         }
 
         tfEmail = findViewById(R.id.tf_email);
@@ -65,9 +68,28 @@ public class ProfileActivity extends AppCompatActivity {
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consumen = getComponentValue();
-                consumenService.insertConsumen(consumen);
-                Toast.makeText(getApplicationContext(), "Success Register", Toast.LENGTH_SHORT).show();
+
+                if (getStr(tfName.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "name cannot be empty", Toast.LENGTH_SHORT).show();
+
+                }else if (getStr(tfEmail.getText()).length() == 0) {
+                    Toast.makeText(getApplicationContext(), "email cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfAddress.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "address cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfPhone.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "phone cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfUsername.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "username cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfPassword.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "password cannot be empty", Toast.LENGTH_SHORT).show();
+
+                } else{
+                    consumen = getComponentValue();
+                    consumenService.insertConsumen(consumen);
+                    Toast.makeText(getApplicationContext(), "Success Register", Toast.LENGTH_SHORT).show();
+                    goToActivity(MainActivity.class);
+                }
+
             }
         });
 
@@ -77,6 +99,15 @@ public class ProfileActivity extends AppCompatActivity {
                 consumen = getComponentValue();
                 consumenService.updateConsumen(consumen);
                 Toast.makeText(getApplicationContext(), "Success edit account", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Success logout account", Toast.LENGTH_SHORT).show();
+                consumenService.deleteConsumen(consumen.getUsername());
+                goToActivity(LoginActivity.class);
             }
         });
         bottomNavigationView.setOnNavigationItemSelectedListener

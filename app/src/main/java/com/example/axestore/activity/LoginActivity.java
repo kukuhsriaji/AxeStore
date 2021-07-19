@@ -57,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Username not registered, please Register..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
+                goToActivity(MainActivity.class);
             }
         });
 
