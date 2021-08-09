@@ -2,7 +2,6 @@ package com.example.axestore.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.ListView;
 import android.widget.ViewFlipper;
 
 import com.example.axestore.R;
+import com.example.axestore.adapter.MainCustomAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_home:
                                 break;
                             case R.id.menu_login:
-                                goToActivity(LoginActivity.class);
+                                goToActivity(TransactionActivity.class);
                                 break;
                             case R.id.menu_cart:
                                 goToActivity(CartActivity.class);

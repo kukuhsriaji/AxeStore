@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".activity.CartActivity">
+    tools:context=".activity.TransactionActivity">
     <!--navigasi bar-->
     <androidx.appcompat.widget.Toolbar
         android:background="@color/colorPrimaryDark"
@@ -34,61 +34,17 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="@drawable/header"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/bt_clear_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/button_round_accent"
-            android:text="Clear Cart"
-            android:textAllCaps="false"
-            android:textSize="12dp"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            />
-
-    </RelativeLayout>
-
-    <ListView
+    <ScrollView
         android:layout_weight="1"
-        android:id="@+id/lv_cart_template"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-75dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_total_price"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/colorAccent"
-            android:text="Total Prices:   Rp 0,-"
-            android:textSize="13dp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_checkout"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/button_round"
-            android:text="Checkout"
-            android:textColor="@color/white"
-            android:textSize="15dp"/>
-    </LinearLayout>
+         </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

@@ -8,6 +8,7 @@ public class Consumen {
     private String phone;
     private String username;
     private String password;
+    private String isLogin;
 
     public String getEmail() {
         return email;
@@ -65,6 +66,14 @@ public class Consumen {
         this.password = password;
     }
 
+    public String getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(String isLogin) {
+        this.isLogin = isLogin;
+    }
+
     @Override
     public String toString() {
         return "Consumen{" +
@@ -75,6 +84,7 @@ public class Consumen {
                 ", phone='" + phone + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", is login='" + isLogin + '\'' +
                 '}';
     }
 }

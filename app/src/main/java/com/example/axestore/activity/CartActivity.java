@@ -14,18 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.axestore.R;
+import com.example.axestore.adapter.CartCustomAdapter;
+import com.example.axestore.adapter.ListAdapterInterface;
 import com.example.axestore.model.Cart;
 import com.example.axestore.model.Consumen;
 import com.example.axestore.service.CartService;
 import com.example.axestore.service.ConsumenService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.sql.SQLOutput;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
-public class CartActivity extends AppCompatActivity implements ListAdapterInterface{
+public class CartActivity extends AppCompatActivity implements ListAdapterInterface {
     ListView lvCartTemplate;
     BottomNavigationView bottomNavigationView;
     CartService cartService;
@@ -73,6 +74,8 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
             @Override
             public void onClick(View v) {
                 cartService.truncateCart();
+                finish();
+                startActivity(getIntent());
             }
         });
 
@@ -112,7 +115,7 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
                                 goToActivity(MainActivity.class);
                                 break;
                             case R.id.menu_login:
-                                goToActivity(LoginActivity.class);
+                                goToActivity(TransactionActivity.class);
                                 break;
                             case R.id.menu_cart:
                                 List<Cart> carts = cartService.getCarts();

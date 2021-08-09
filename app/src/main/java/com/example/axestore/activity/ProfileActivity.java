@@ -10,22 +10,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.axestore.R;
 import com.example.axestore.model.Consumen;
-import com.example.axestore.service.CartService;
 import com.example.axestore.service.ConsumenService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    Button btRegister, btEdit,btLogout;
-    EditText tfEmail, tfName, tfAddress, tfPhone, tfUsername, tfPassword;
+    Button btRegister, btEdit, btLogout, btLogin, btRegisterLogin;
+    EditText tfEmail, tfName, tfAddress, tfPhone, tfUsername, tfPassword, tfUsernameLogin,tfPasswordLogin;
     Spinner cbGender;
     Consumen consumen;
     private ConsumenService consumenService;
+    LinearLayout formLogin, formProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
         btRegister = findViewById(R.id.bt_register);
         btEdit = findViewById(R.id.bt_edit);
         btLogout = findViewById(R.id.bt_logout);
-
-        if(consumen != null && consumen.getUsername() != null){
-            btRegister.setVisibility(Button.GONE);
-            btEdit.setVisibility(Button.VISIBLE);
-            btLogout.setVisibility(Button.VISIBLE);
-        } else {
-            btRegister.setVisibility(Button.VISIBLE);
-            btEdit.setVisibility(Button.GONE);
-            btLogout.setVisibility(Button.GONE);
-        }
-
         tfEmail = findViewById(R.id.tf_email);
         tfName = findViewById(R.id.tf_name);
         cbGender = findViewById(R.id.cb_gender);
@@ -62,16 +54,37 @@ public class ProfileActivity extends AppCompatActivity {
         tfPhone = findViewById(R.id.tf_phone);
         tfUsername = findViewById(R.id.tf_username);
         tfPassword = findViewById(R.id.tf_password);
+        tfUsernameLogin = findViewById(R.id.tf_username_login);
+        tfPasswordLogin = findViewById(R.id.tf_password_login);
+        btLogin = findViewById(R.id.bt_login);
+        formLogin = findViewById(R.id.formLogin);
+        formProfile = findViewById(R.id.formProfile);
+        btRegisterLogin = findViewById(R.id.bt_register_login);
+
+        if(consumen != null && consumen.getUsername() != null){
+            System.out.println("consumen.getUsername() -> "+consumen.getUsername());
+            btRegister.setVisibility(Button.GONE);
+            btEdit.setVisibility(Button.VISIBLE);
+            btLogout.setVisibility(Button.VISIBLE);
+            tfUsername.setEnabled(false);
+            formLogin.setVisibility(Button.GONE);
+            formProfile.setVisibility(Button.VISIBLE);
+        } else {
+            btRegister.setVisibility(Button.VISIBLE);
+            btEdit.setVisibility(Button.GONE);
+            btLogout.setVisibility(Button.GONE);
+            tfUsername.setEnabled(true);
+            formLogin.setVisibility(Button.VISIBLE);
+            formProfile.setVisibility(Button.GONE);
+        }
     }
 
     private void initAction(){
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (getStr(tfName.getText()).length() == 0){
                     Toast.makeText(getApplicationContext(), "name cannot be empty", Toast.LENGTH_SHORT).show();
-
                 }else if (getStr(tfEmail.getText()).length() == 0) {
                     Toast.makeText(getApplicationContext(), "email cannot be empty", Toast.LENGTH_SHORT).show();
                 }else if (getStr(tfAddress.getText()).length() == 0){
@@ -82,7 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "username cannot be empty", Toast.LENGTH_SHORT).show();
                 }else if (getStr(tfPassword.getText()).length() == 0){
                     Toast.makeText(getApplicationContext(), "password cannot be empty", Toast.LENGTH_SHORT).show();
-
                 } else{
                     consumen = getComponentValue();
                     consumenService.insertConsumen(consumen);
@@ -106,10 +118,41 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Success logout account", Toast.LENGTH_SHORT).show();
-                consumenService.deleteConsumen(consumen.getUsername());
-                goToActivity(LoginActivity.class);
+                consumenService.logoutConsumen(consumen);
+                finish();
+                startActivity(getIntent());
+//                goToActivity(LoginActivity.class);
             }
         });
+
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Consumen> consumenList = consumenService.getAllConsumen();
+                System.out.println("Show all consumen");
+                for(Consumen c : consumenList){
+                    System.out.println(c.toString());
+                }
+                Consumen c = consumenService.doLogin(getStr(tfUsernameLogin.getText()), getStr(tfPasswordLogin.getText()));
+                if(c != null){
+                    Toast.makeText(getApplicationContext(), "Terimakasih "+c.getName()+" sudah login di Axestore !", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
+//                    goToActivity(MainActivity.class);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Username and Password not match !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btRegisterLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                formLogin.setVisibility(Button.GONE);
+                formProfile.setVisibility(Button.VISIBLE);
+            }
+        });
+
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -119,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 goToActivity(MainActivity.class);
                                 break;
                             case R.id.menu_login:
-                                goToActivity(LoginActivity.class);
+                                goToActivity(TransactionActivity.class);
                                 break;
                             case R.id.menu_cart:
                                 goToActivity(CartActivity.class);

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -16,21 +18,20 @@ import com.example.axestore.model.Consumen;
 import com.example.axestore.service.ConsumenService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class LoginActivity extends AppCompatActivity {
+import java.util.List;
+
+public class TransactionActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    LinearLayout formLogin, txLogin;
     Consumen consumen;
     private ConsumenService consumenService;
-    Button btLogin;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_transaction);
         consumenService = new ConsumenService(this);
         consumen = consumenService.getConsumenLogin();
     }
-
 
     @Override
     protected void onResume() {
@@ -42,25 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     private void initComponent(){
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
-        formLogin = findViewById(R.id.formLogin);
-        txLogin = findViewById(R.id.tx_login);
         if(consumen != null && consumen.getUsername() != null){
-            formLogin.setVisibility(Button.GONE);
-            txLogin.setVisibility(Button.VISIBLE);
+            System.out.println("consumen.getUsername() -> "+consumen.getUsername());
         } else {
-            formLogin.setVisibility(Button.VISIBLE);
-            txLogin.setVisibility(Button.GONE);
         }
-        btLogin = findViewById(R.id.bt_login);
     }
     private void initAction(){
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
-                goToActivity(MainActivity.class);
-            }
-        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,10 +74,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void goToActivity(Class clazz){
-        Intent intent = new Intent(LoginActivity.this, clazz);
+        Intent intent = new Intent(TransactionActivity.this, clazz);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        LoginActivity.this.finish();
+        TransactionActivity.this.finish();
+    }
+
+    private String getStr(Editable text){
+        return text == null ? "" : text.toString();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.axestore.activity;
+package com.example.axestore.adapter;
 
 import com.example.axestore.model.Cart;
 

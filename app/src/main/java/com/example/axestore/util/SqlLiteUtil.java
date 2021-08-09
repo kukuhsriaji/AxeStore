@@ -29,6 +29,7 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
     public static final String field_phone = "phone";
     public static final String field_username = "username";
     public static final String field_password = "password";
+    public static final String field_is_login = "isLogin";
 
 
     public static final String TABLE_CART = "cart";
@@ -54,7 +55,8 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
                 " "+field_address+" TEXT, " +
                 " "+field_phone+" TEXT, " +
                 " "+field_username+" TEXT PRIMARY KEY, " +
-                " "+field_password+" TEXT)");
+                " "+field_password+" TEXT, " +
+                " "+field_is_login+" TEXT)");
 
         sqLiteDatabase.execSQL("CREATE table IF NOT EXISTS " + TABLE_CART +
                 " ("+field_id_product +" TEXT PRIMARY KEY, " +
@@ -72,7 +74,7 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
 
     //START USING LOCAL SQL LITE
     public Long insertConsumenSqlLite(Consumen c){
-        truncateSqlLite();
+        //truncateSqlLite();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(field_email, c.getEmail());
@@ -82,6 +84,7 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         contentValues.put(field_phone, c.getPhone());
         contentValues.put(field_username, c.getUsername());
         contentValues.put(field_password, c.getPassword());
+        contentValues.put(field_is_login, "0");
         long result = db.insert(TABLE_CONSUMEN, null, contentValues);
         db.close();
         return result;
@@ -109,6 +112,24 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         contentValues.put(field_phone, c.getPhone());
         contentValues.put(field_username, c.getUsername());
         contentValues.put(field_password, c.getPassword());
+        contentValues.put(field_is_login, "1");
+        Integer rowsUpdated = db.update(TABLE_CONSUMEN, contentValues, field_username.concat(" = ?"), new String[] { c.getUsername() });
+        db.close();
+        return rowsUpdated;
+    }
+
+    public Integer logoutConsumenSqlLite(Consumen c){
+        System.out.println("updateSqlLite consumen");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+//        contentValues.put(field_email, c.getEmail());
+//        contentValues.put(field_name_consumen, c.getName());
+//        contentValues.put(field_gender, c.getGender());
+//        contentValues.put(field_address, c.getAddress());
+//        contentValues.put(field_phone, c.getPhone());
+//        contentValues.put(field_username, c.getUsername());
+//        contentValues.put(field_password, c.getPassword());
+        contentValues.put(field_is_login, "0");
         Integer rowsUpdated = db.update(TABLE_CONSUMEN, contentValues, field_username.concat(" = ?"), new String[] { c.getUsername() });
         db.close();
         return rowsUpdated;
@@ -160,10 +181,10 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Consumen getConsumenlSqlLite(){
+    public Consumen findConsumenlSqlLite(String username, String password){
         Consumen c = new Consumen();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN, null);
+        Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN+" where "+field_username+" = '"+username+"' and "+field_password+" = '"+password+"'", null);
         while (res.moveToNext()) {
             c.setEmail(res.getString(0));
             c.setName(res.getString(1));
@@ -172,6 +193,26 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
             c.setPhone(res.getString(4));
             c.setUsername(res.getString(5));
             c.setPassword(res.getString(6));
+            c.setIsLogin(res.getString(7));
+        }
+        res.close();
+        db.close();
+        return c;
+    }
+
+    public Consumen getLoginConsumenlSqlLite(){
+        Consumen c = new Consumen();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN+" where "+field_is_login+" = '1'", null);
+        while (res.moveToNext()) {
+            c.setEmail(res.getString(0));
+            c.setName(res.getString(1));
+            c.setGender(res.getString(2));
+            c.setAddress(res.getString(3));
+            c.setPhone(res.getString(4));
+            c.setUsername(res.getString(5));
+            c.setPassword(res.getString(6));
+            c.setIsLogin(res.getString(7));
         }
         res.close();
         db.close();
@@ -210,6 +251,62 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         res.close();
         db.close();
         return carts;
+    }
+
+    public Integer logoutOtherConsumenSqlLite(Consumen c){
+        System.out.println("logoutOtherConsumenSqlLite consumen");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+//        contentValues.put(field_email, c.getEmail());
+//        contentValues.put(field_name_consumen, c.getName());
+//        contentValues.put(field_gender, c.getGender());
+//        contentValues.put(field_address, c.getAddress());
+//        contentValues.put(field_phone, c.getPhone());
+//        contentValues.put(field_username, c.getUsername());
+//        contentValues.put(field_password, c.getPassword());
+        contentValues.put(field_is_login, "0");
+        Integer rowsUpdated = db.update(TABLE_CONSUMEN, contentValues, field_username.concat(" != ?"), new String[] { c.getUsername() });
+        db.close();
+        return rowsUpdated;
+    }
+
+    public Integer setLoginConsumenSqlLite(Consumen c){
+        System.out.println("logoutOtherConsumenSqlLite consumen");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+//        contentValues.put(field_email, c.getEmail());
+//        contentValues.put(field_name_consumen, c.getName());
+//        contentValues.put(field_gender, c.getGender());
+//        contentValues.put(field_address, c.getAddress());
+//        contentValues.put(field_phone, c.getPhone());
+//        contentValues.put(field_username, c.getUsername());
+//        contentValues.put(field_password, c.getPassword());
+        contentValues.put(field_is_login, "1");
+        Integer rowsUpdated = db.update(TABLE_CONSUMEN, contentValues, field_username.concat(" = ?"), new String[] { c.getUsername() });
+        db.close();
+        return rowsUpdated;
+    }
+
+    public List<Consumen> getAllConsumenSqlLite(){
+        List<Consumen> cons = new ArrayList<Consumen>();
+        Consumen c = new Consumen();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN, null);
+        while (res.moveToNext()) {
+            c = new Consumen();
+            c.setEmail(res.getString(0));
+            c.setName(res.getString(1));
+            c.setGender(res.getString(2));
+            c.setAddress(res.getString(3));
+            c.setPhone(res.getString(4));
+            c.setUsername(res.getString(5));
+            c.setPassword(res.getString(6));
+            c.setIsLogin(res.getString(7));
+            cons.add(c);
+        }
+        res.close();
+        db.close();
+        return cons;
     }
 
     //END USING LOCAL SQL LITE

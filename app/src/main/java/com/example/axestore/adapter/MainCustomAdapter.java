@@ -1,4 +1,4 @@
-package com.example.axestore.activity;
+package com.example.axestore.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
