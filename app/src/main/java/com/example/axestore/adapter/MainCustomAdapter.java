@@ -17,10 +17,8 @@ import com.example.axestore.R;
 import com.example.axestore.model.Cart;
 import com.example.axestore.service.CartService;
 
-import java.util.ArrayList;
-import java.util.Formatter;
+import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class MainCustomAdapter extends BaseAdapter {
     Context context;
@@ -72,10 +70,7 @@ public class MainCustomAdapter extends BaseAdapter {
 
         TextView tvProdPrice = view.findViewById(R.id.tv_prod_price);
         Double amount = Double.valueOf(prodPriceList[i]);
-        StringBuilder amountStr = new StringBuilder();
-        Formatter formatter = new Formatter(amountStr, Locale.ROOT);
-        formatter.format("Rp.%(,.2f,-", amount);
-        tvProdPrice.setText(amountStr);
+        tvProdPrice.setText("Rp "+formatCurrency(amount)+",-");
 
         cartService = new CartService(view.getContext());
         Button btAddCart = view.findViewById(R.id.bt_add_to_cart);
@@ -89,7 +84,7 @@ public class MainCustomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 List<Cart> cartList = cartService.findCarts(idProduct);
                 if(cartList.isEmpty()){
-                    cartService.insertCart(new Cart(Integer.valueOf(idProduct)));
+                    cartService.insertCart(new Cart(Integer.valueOf(idProduct), 0, " "));
                     System.out.println("Success add to cart");
                     isExist[0]=0;
                     Toast.makeText(viewFinal.getContext().getApplicationContext(), nameProduct+" success add to cart", Toast.LENGTH_SHORT).show();
@@ -110,5 +105,9 @@ public class MainCustomAdapter extends BaseAdapter {
         return view;
     }
 
+    private String formatCurrency(Double nominal){
+        DecimalFormat dFormat = new DecimalFormat("####,###,###");
+        return dFormat.format(nominal);
+    }
 
 }

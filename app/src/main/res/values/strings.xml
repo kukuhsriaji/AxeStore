@@ -14,9 +14,6 @@
         <item>Female</item>
     </string-array>
 
-
-
-
     <!-- START INITIALIZE OUR PRODUCT-->
     <integer-array name="product_id">
         <item>0</item> <!--img src cupang biru-->

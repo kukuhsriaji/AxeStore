@@ -9,8 +9,10 @@ public class Cart {
     public Cart (){
     }
 
-    public Cart (Integer idProduct){
+    public Cart (Integer idProduct, Integer countItem, String note){
         this.idProduct = idProduct;
+        this.countItem = countItem;
+        this.note = note;
     }
 
     public Integer getCountItem() {

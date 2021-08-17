@@ -34,33 +34,40 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="@drawable/header"
-        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
         <Button
-            android:id="@+id/bt_clear_cart"
-            android:layout_width="wrap_content"
+            android:id="@+id/bt_refresh_cart"
+            android:layout_width="60dp"
             android:layout_height="30dp"
             android:background="@drawable/button_round_accent"
-            android:text="Clear Cart"
+            android:text="Refresh"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="5dp"/>
+        <Button
+            android:id="@+id/bt_clear_cart"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_round_accent"
+            android:text="Clear"
             android:textAllCaps="false"
             android:textSize="12dp"
             android:textColor="@color/colorPrimary"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            />
-
-    </RelativeLayout>
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
 
     <ListView
-        android:layout_weight="1"
         android:id="@+id/lv_cart_template"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-75dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,8 +93,7 @@
             android:layout_height="35dp"
             android:background="@drawable/button_round"
             android:text="Checkout"
-            android:textColor="@color/white"
-            android:textSize="15dp"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

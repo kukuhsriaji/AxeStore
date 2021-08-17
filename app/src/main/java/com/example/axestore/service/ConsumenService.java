@@ -17,7 +17,7 @@ public class ConsumenService {
     }
 
     public Consumen doLogin(String username, String password){
-        Consumen consumen = sqlLiteUtil.findConsumenlSqlLite(username, password);
+        Consumen consumen = sqlLiteUtil.findConsumenSqlLite(username, password);
         if(consumen != null && consumen.getUsername() != null && !"".equals(consumen.getUsername())){
             sqlLiteUtil.setLoginConsumenSqlLite(consumen);
             sqlLiteUtil.logoutOtherConsumenSqlLite(consumen);
@@ -51,6 +51,10 @@ public class ConsumenService {
 
     public Integer logoutConsumen(Consumen consumen){
         return sqlLiteUtil.logoutConsumenSqlLite(consumen);
+    }
+
+    public Consumen findConsumenByUsername(String username){
+        return sqlLiteUtil.findConsumenByUsername(username);
     }
 
 }

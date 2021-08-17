@@ -22,6 +22,7 @@ import com.example.axestore.service.CartService;
 import com.example.axestore.service.ConsumenService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DecimalFormat;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
     BottomNavigationView bottomNavigationView;
     CartService cartService;
     ConsumenService consumenService;
-    Button btClearCart, btCheckout;
+    Button btClearCart, btCheckout, btRefreshCart;
     TextView tvTotalPrice;
     List<Cart> carts;
     Consumen consumen;
@@ -42,8 +43,11 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         cartService = new CartService(this);
-        cartService.deleteZeroCart();
         carts = cartService.getCarts();
+        System.out.println("CARTS SAAT INI");
+        for(Cart c : carts){
+            System.out.println(c.toString());
+        }
         consumenService = new ConsumenService(this);
         consumen = consumenService.getConsumenLogin();
         prodNameArr = getResources().getStringArray(R.array.product_name_arrays);
@@ -63,6 +67,7 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
 
         btClearCart = findViewById(R.id.bt_clear_cart);
         btCheckout = findViewById(R.id.bt_checkout);
+        btRefreshCart = findViewById(R.id.bt_refresh_cart);
 
         tvTotalPrice = findViewById(R.id.tv_total_price);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -74,6 +79,14 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
             @Override
             public void onClick(View v) {
                 cartService.truncateCart();
+                finish();
+                startActivity(getIntent());
+            }
+        });
+        btRefreshCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartService.deleteZeroCart();
                 finish();
                 startActivity(getIntent());
             }
@@ -96,8 +109,7 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
                     for(Cart c : carts){
                         url = url.concat(replaceSpace(prodNameArr[c.getIdProduct()])+"+-+"+c.getCountItem()+"+ekor+%0A");
                     }
-                    url = url.concat("+%0ATOTAL+HARGA:+"+formatPrice(Double.valueOf(totalPrice(carts)))+"+%0A");
-
+                    url = url.concat("+%0ATOTAL+HARGA:+Rp+"+formatCurrency(Double.valueOf(totalPrice(carts)))+",-+%0A");
                     System.out.println("url -> "+url);
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
@@ -119,10 +131,6 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
                                 break;
                             case R.id.menu_cart:
                                 List<Cart> carts = cartService.getCarts();
-                                System.out.println("Jumlah barang di cart = "+carts.size());
-                                for(Cart c : carts){
-                                    System.out.println(c.getIdProduct()+"|"+c.getCountItem()+"|"+c.getNote());
-                                }
                                 break;
                             case R.id.menu_profile:
                                 goToActivity(ProfileActivity.class);
@@ -144,15 +152,12 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
     @Override
     public void setTotalPrice(List<Cart> cartsTemp) {
         Double totalPrice = Double.valueOf(totalPrice(cartsTemp));
-        tvTotalPrice.setText("Total Prices:   "+formatPrice(totalPrice));
+        tvTotalPrice.setText("Total Prices:   Rp "+formatCurrency(totalPrice)+",-");
     }
 
-    private String formatPrice(Double price){
-        StringBuilder totalPriceStr = new StringBuilder();
-        Formatter formatter = new Formatter(totalPriceStr, Locale.ROOT);
-        formatter.format("Rp.%(,.2f,-", price);
-        System.out.println("setParentTotalPrice --> "+totalPriceStr);
-        return totalPriceStr.toString();
+    private String formatCurrency(Double nominal){
+        DecimalFormat dFormat = new DecimalFormat("####,###,###");
+        return dFormat.format(nominal);
     }
 
     public Integer totalPrice(List<Cart> carts){

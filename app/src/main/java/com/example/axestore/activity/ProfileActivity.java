@@ -2,15 +2,23 @@ package com.example.axestore.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,7 +27,19 @@ import com.example.axestore.model.Consumen;
 import com.example.axestore.service.ConsumenService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import android.os.StrictMode;
 
 public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -29,11 +49,17 @@ public class ProfileActivity extends AppCompatActivity {
     Consumen consumen;
     private ConsumenService consumenService;
     LinearLayout formLogin, formProfile;
+    String generatedToken="a";
+    int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         consumenService = new ConsumenService(this);
         consumen = consumenService.getConsumenLogin();
         initComponent();
@@ -80,35 +106,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initAction(){
-        btRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getStr(tfName.getText()).length() == 0){
-                    Toast.makeText(getApplicationContext(), "name cannot be empty", Toast.LENGTH_SHORT).show();
-                }else if (getStr(tfEmail.getText()).length() == 0) {
-                    Toast.makeText(getApplicationContext(), "email cannot be empty", Toast.LENGTH_SHORT).show();
-                }else if (getStr(tfAddress.getText()).length() == 0){
-                    Toast.makeText(getApplicationContext(), "address cannot be empty", Toast.LENGTH_SHORT).show();
-                }else if (getStr(tfPhone.getText()).length() == 0){
-                    Toast.makeText(getApplicationContext(), "phone cannot be empty", Toast.LENGTH_SHORT).show();
-                }else if (getStr(tfUsername.getText()).length() == 0){
-                    Toast.makeText(getApplicationContext(), "username cannot be empty", Toast.LENGTH_SHORT).show();
-                }else if (getStr(tfPassword.getText()).length() == 0){
-                    Toast.makeText(getApplicationContext(), "password cannot be empty", Toast.LENGTH_SHORT).show();
-                } else{
-                    consumen = getComponentValue();
-                    consumenService.insertConsumen(consumen);
-                    Toast.makeText(getApplicationContext(), "Success Register", Toast.LENGTH_SHORT).show();
-                    goToActivity(MainActivity.class);
-                }
-
-            }
-        });
-
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consumen = getComponentValue();
+                consumen = getFormValue();
                 consumenService.updateConsumen(consumen);
                 Toast.makeText(getApplicationContext(), "Success edit account", Toast.LENGTH_SHORT).show();
             }
@@ -135,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 Consumen c = consumenService.doLogin(getStr(tfUsernameLogin.getText()), getStr(tfPasswordLogin.getText()));
                 if(c != null){
-                    Toast.makeText(getApplicationContext(), "Terimakasih "+c.getName()+" sudah login di Axestore !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Thank you !\nLogin successfuly "+c.getName()+" !", Toast.LENGTH_SHORT).show();
                     finish();
                     startActivity(getIntent());
 //                    goToActivity(MainActivity.class);
@@ -150,6 +151,33 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 formLogin.setVisibility(Button.GONE);
                 formProfile.setVisibility(Button.VISIBLE);
+            }
+        });
+
+        btRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EmailTokenPopupActivity popupClass = new EmailTokenPopupActivity();
+                if (getStr(tfName.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "name cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfEmail.getText()).length() == 0) {
+                    Toast.makeText(getApplicationContext(), "email cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfAddress.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "address cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfPhone.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "phone cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfUsername.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "username cannot be empty", Toast.LENGTH_SHORT).show();
+                }else if (getStr(tfPassword.getText()).length() == 0){
+                    Toast.makeText(getApplicationContext(), "password cannot be empty", Toast.LENGTH_SHORT).show();
+                } else{
+                    Consumen checkConsumen = consumenService.findConsumenByUsername(getStr(tfUsername.getText()));
+                    if(checkConsumen != null && checkConsumen.getUsername() != null && !"".equals(checkConsumen.getUsername())){
+                        Toast.makeText(getApplicationContext(), "Username "+getStr(tfUsername.getText())+" already exist", Toast.LENGTH_SHORT).show();
+                    } else {
+                        tokenValidation(v);
+                    }
+                }
             }
         });
 
@@ -176,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private Consumen getComponentValue() {
+    private Consumen getFormValue() {
         Consumen c = new Consumen();
         c.setEmail(getStr(tfEmail.getText()));
         c.setName(getStr(tfName.getText()));
@@ -220,6 +248,95 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String getStr(String str){
         return str == null ? "" : str;
+    }
+
+    private boolean checkPermissionInternet() {
+        // checking of permissions.
+        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET);
+        return permission1 == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissionInternet() {
+        // requesting permissions if not provided.
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_REQUEST_CODE);
+    }
+
+    public void tokenValidation(final View view){
+        if (checkPermissionInternet()) {
+        } else {
+            requestPermissionInternet();
+        }
+        sendTokenEmail();
+        showPopupInputToken(view);
+    }
+
+    private void sendTokenEmail(){
+        generatedToken = new SimpleDateFormat("mmssHH").format(new Date());
+        String to = getStr(tfEmail.getText());
+        final String from = "axestoreofficial@gmail.com";
+        String host = "smtp.gmail.com";
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, "Psak123!!");
+            }
+        });
+        session.setDebug(true);
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("AXESTORE Registration Token");
+            message.setText("This is your token: "+generatedToken);
+//            message.setContent(
+//                    "<h1>"+token+"</h1>",
+//                    "text/html");
+            Transport.send(message);
+        } catch (MessagingException mex) {
+            Toast.makeText(getApplicationContext(), "Email: "+mex.getMessage(), Toast.LENGTH_SHORT).show();
+            mex.printStackTrace();
+        }
+
+
+    }
+
+    private void showPopupInputToken(final View view){
+        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.activity_email_token_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        final EditText tfToken = popupView.findViewById(R.id.tf_token);
+        Button btSubmitToken = popupView.findViewById(R.id.bt_submit_token);
+        btSubmitToken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(generatedToken.equals(getStr(tfToken.getText()))){ //VALIDASI TOKEN
+                    Toast.makeText(getApplicationContext(), "Token valid !\nThank you for register Axe Store\nPlease Login..", Toast.LENGTH_LONG).show();
+                    popupWindow.dismiss();
+                    consumen = getFormValue();
+                    consumenService.insertConsumen(consumen);
+                    formLogin.setVisibility(Button.VISIBLE);
+                    formProfile.setVisibility(Button.GONE);
+//                    goToActivity(MainActivity.class);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Token not valid !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //Close the window when clicked
+                popupWindow.dismiss();
+                return true;
+            }
+        });
     }
 
 }

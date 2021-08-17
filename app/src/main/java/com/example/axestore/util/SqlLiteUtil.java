@@ -161,11 +161,10 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         return rowDeleted;
     }
 
-    public int deleteZeroCartSqlLite(){
+    public void deleteZeroCartSqlLite(){
         SQLiteDatabase db = this.getWritableDatabase();
         int rowDeleted = db.delete(TABLE_CART, field_count_item.concat(" = ?"), new String[] { "0" });
         db.close();
-        return rowDeleted;
     }
 
     public void truncateCart(){
@@ -181,7 +180,7 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Consumen findConsumenlSqlLite(String username, String password){
+    public Consumen findConsumenSqlLite(String username, String password){
         Consumen c = new Consumen();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN+" where "+field_username+" = '"+username+"' and "+field_password+" = '"+password+"'", null);
@@ -197,6 +196,27 @@ public class SqlLiteUtil extends SQLiteOpenHelper {
         }
         res.close();
         db.close();
+        return c;
+    }
+
+    public Consumen findConsumenByUsername(String username){
+        System.out.println("masuk findConsumenlSqlLite");
+        Consumen c = new Consumen();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+ TABLE_CONSUMEN+" where "+field_username+" = '"+username+"'", null);
+        while (res.moveToNext()) {
+            c.setEmail(res.getString(0));
+            c.setName(res.getString(1));
+            c.setGender(res.getString(2));
+            c.setAddress(res.getString(3));
+            c.setPhone(res.getString(4));
+            c.setUsername(res.getString(5));
+            c.setPassword(res.getString(6));
+            c.setIsLogin(res.getString(7));
+        }
+        res.close();
+        db.close();
+        System.out.println("end findConsumenlSqlLite");
         return c;
     }
 

@@ -33,8 +33,10 @@ public class CartService {
         return sqlLiteUtil.deleteCartSqlLite(idProduct);
     }
 
-    public int deleteZeroCart(){
-        return sqlLiteUtil.deleteZeroCartSqlLite();
+    public void deleteZeroCart(){
+        System.out.println("deleteZeroCart called");
+        sqlLiteUtil.deleteZeroCartSqlLite();
+        System.out.println("deleteZeroCart end called");
     }
 
     public void truncateCart(){

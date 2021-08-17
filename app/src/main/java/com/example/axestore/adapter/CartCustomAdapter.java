@@ -15,10 +15,9 @@ import com.example.axestore.R;
 import com.example.axestore.model.Cart;
 import com.example.axestore.service.CartService;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
 
 public class CartCustomAdapter extends BaseAdapter {
     Context mContext;
@@ -75,13 +74,7 @@ public class CartCustomAdapter extends BaseAdapter {
 
         TextView tvProdPrice = view.findViewById(R.id.tv_prod_price);
         Double amount = Double.valueOf(prodPriceList[cart.getIdProduct()]);
-        StringBuilder amountStr = new StringBuilder();
-
-        Formatter formatter = new Formatter(amountStr, Locale.ROOT);
-        formatter.format("Rp.%(,.2f,-", amount);
-        tvProdPrice.setText(amountStr);
-
-
+        tvProdPrice.setText("Rp "+formatCurrency(amount)+",-");
 
         Button btMinProd = view.findViewById(R.id.bt_min_prod);
         Button btPlusProd = view.findViewById(R.id.bt_plus_prod);
@@ -107,6 +100,7 @@ public class CartCustomAdapter extends BaseAdapter {
         });
 
         final EditText tfNoteProd = view.findViewById(R.id.tf_note_prod);
+        tfNoteProd.setText(cart.getNote());
 
 
         final View viewFinal= view;
@@ -125,6 +119,11 @@ public class CartCustomAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    private String formatCurrency(Double nominal){
+        DecimalFormat dFormat = new DecimalFormat("####,###,###");
+        return dFormat.format(nominal);
     }
 
 }
