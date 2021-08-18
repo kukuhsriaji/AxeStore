@@ -175,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if(checkConsumen != null && checkConsumen.getUsername() != null && !"".equals(checkConsumen.getUsername())){
                         Toast.makeText(getApplicationContext(), "Username "+getStr(tfUsername.getText())+" already exist", Toast.LENGTH_SHORT).show();
                     } else {
-                        tokenValidation(v);
+                        showPopupInputToken(v);
                     }
                 }
             }
@@ -201,6 +201,7 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
 
     }
 
@@ -261,13 +262,12 @@ public class ProfileActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_REQUEST_CODE);
     }
 
-    public void tokenValidation(final View view){
+    public void sendTokenPrep(){
         if (checkPermissionInternet()) {
         } else {
             requestPermissionInternet();
         }
         sendTokenEmail();
-        showPopupInputToken(view);
     }
 
     private void sendTokenEmail(){
@@ -301,8 +301,6 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Email: "+mex.getMessage(), Toast.LENGTH_SHORT).show();
             mex.printStackTrace();
         }
-
-
     }
 
     private void showPopupInputToken(final View view){
@@ -313,6 +311,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         final EditText tfToken = popupView.findViewById(R.id.tf_token);
         Button btSubmitToken = popupView.findViewById(R.id.bt_submit_token);
+        Button btSendToken = popupView.findViewById(R.id.bt_send_token);
+
         btSubmitToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -329,14 +329,22 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
-        popupView.setOnTouchListener(new View.OnTouchListener() {
+
+        btSendToken.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //Close the window when clicked
-                popupWindow.dismiss();
-                return true;
+            public void onClick(View v) {
+                sendTokenPrep();
             }
         });
+
+//        popupView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                //Close the window when clicked
+//                popupWindow.dismiss();
+//                return true;
+//            }
+//        });
     }
 
 }
