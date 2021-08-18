@@ -103,6 +103,7 @@ public class CartActivity extends AppCompatActivity implements ListAdapterInterf
                 } else {
                     String url = "https://api.whatsapp.com/send?phone=6281288943177&" +
                             "text=CHECKOUT+AXE+STORE+%0A%0A" +
+                            "Username:+"+replaceSpace(consumen.getUsername())+"+%0A" +
                             "Nama:+"+replaceSpace(consumen.getName())+"+%0A" +
                             "Alamat:+"+replaceSpace(consumen.getAddress())+"+%0A%0A";
 
